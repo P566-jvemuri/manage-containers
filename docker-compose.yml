@@ -1,0 +1,24 @@
+services:
+  gateway-service:
+    image: gateway-service
+    build:
+      context: ../gateway-service
+      dockerfile: Dockerfile
+    container_name: gateway-service
+    ports:
+      - "4000:8180"
+    depends_on:
+      - primes-service
+    environment:
+      - server.port=8180
+
+  primes-service:
+    image: primes-service
+    build:
+      context: ../primes-service
+      dockerfile: Dockerfile
+    container_name: primes-service
+    ports:
+      - "4001:8080"
+    environment:
+      - server.port=8080
